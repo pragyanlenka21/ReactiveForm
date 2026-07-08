@@ -1,0 +1,29 @@
+<div class="container">
+    <form [formGroup]="myFormGroup">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter Name">
+            <small *ngIf="myFormGroup.controls.name.touched && myFormGroup.controls.name.errors?.['required']">Name is required</small>
+            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" placeholder="Enter Email">
+            <small *ngIf="myFormGroup.controls.email.touched && myFormGroup.controls.email.errors?.['required']">Email is required</small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Number</label>
+            <input type="text" class="form-control" formControlName="myNumber" placeholder="Enter Number">
+            <small *ngIf="myFormGroup.controls.myNumber.touched && myFormGroup.controls.myNumber.errors?.['required']">Number is required</small>
+            <!-- <small *ngIf="myFormGroup.controls.myNumber.errors?.['maxlength']">Maximum</small>
+            <small *ngIf="myFormGroup.controls.myNumber.errors?.['minlength']">Minimum</small> -->
+            <small *ngIf="myFormGroup.controls.myNumber.errors?.['max']">max</small>
+        </div> 
+        <!-- <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div> -->
+        <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+    </form>
+
+</div>
