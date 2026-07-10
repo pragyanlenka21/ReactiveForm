@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { FormComponent } from './reactiveform/form/form.component';
 import { Form2Component } from './form2/form2.component';
+import { NewFormComponent } from './new-form/new-form.component';
 
 export const routes: Routes = [
     {
@@ -18,7 +19,11 @@ export const routes: Routes = [
         component:Form2Component,
         title: 'Form2'
     },
-    
+    {
+        path: 'new-form',
+        component:NewFormComponent,
+        title: 'New-Form'
+    },
     {
         path: '**',
         component: FormComponent,

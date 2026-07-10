@@ -46,7 +46,8 @@
                             Password is required.
                         </small>
 
-                        <small *ngIf="registerForm.get('password')?.dirty && registerForm.get('password')?.errors?.['pattern']">
+                        <small
+                            *ngIf="registerForm.get('password')?.dirty && registerForm.get('password')?.errors?.['pattern']">
                             Password must be at least 8 characters long and contain:
                             <ul class="mb-0 ps-3">
                                 <li>One uppercase letter (A-Z)</li>
@@ -176,8 +177,8 @@
 
             </div>
 
-            <button class="btn btn-primary" (click)="setValue()">Set Value</button>
-            <button class="btn btn-success ms-3" (click)="patchValue()">Patch Value</button>
+            <!-- <button class="btn btn-primary" (click)="setValue()">Set Value</button> -->
+            <!-- <button class="btn btn-success ms-3" (click)="patchValue()">Patch Value</button> -->
 
             <table class="table table-striped table-bordered mt-3">
                 <thead>
@@ -195,97 +196,212 @@
                     </tr>
                 </tbody>
             </table>
-
+            <!-- --------------------------------------------------------------------------------------------------------- -->
             <hr>
 
-            <!-- <h5 class="mb-3">Account Information</h5>
+            <h5 class="mb-3">Account Information</h5>
 
             <div class="row">
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                    <div class="text-danger" *ngIf="registerForm.get('email')?.touched &&
+                              registerForm.get('email')?.invalid">
+
+                        <small *ngIf="registerForm.get('email')?.errors?.['required']">
+                            Email is required.
+                        </small>
+
+                        <small *ngIf="registerForm.get('email')?.errors?.['email']">
+                            Enter a valid email.
+                        </small>
+                    </div>
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Confirm Email</label>
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" formControlName="confirmEmail" placeholder="Confirm email">
+                    <div class="text-danger mt-1" *ngIf="registerForm.get('confirmEmail')?.touched ">
+
+                        <small *ngIf="registerForm.get('confirmEmail')?.errors?.['required']">
+                            Confirm Email is required.
+                        </small>
+
+                        <small *ngIf="registerForm.get('confirmEmail')?.errors?.['email']">
+                            Enter a valid email.
+                        </small>
+                        <!-- this is for pattern matching  -->
+                        <small *ngIf="emailMismatch">
+                            Email does not match.
+                        </small>
+
+
+                    </div>
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" formControlName="accountPassword"
+                        placeholder="Enter password">
+                    <div class="text-danger mt-1" *ngIf="registerForm.get('accountPassword')?.touched &&
+               registerForm.get('accountPassword')?.invalid">
+
+                        <small *ngIf="registerForm.get('accountPassword')?.errors?.['required']">
+                            Password is required.
+                        </small>
+
+                        <small *ngIf="registerForm.get('accountPassword')?.errors?.['pattern']">
+                            Password must contain uppercase, lowercase, number and special character.
+                        </small>
+
+                    </div>
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" formControlName="confirmPassword"
+                        placeholder="Confirm password">
+                    <div class="text-danger mt-1" *ngIf="registerForm.get('confirmPassword')?.touched">
+
+                        <small *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+                            Confirm Password is required.
+                        </small>
+                        <small *ngIf="passwordMismatch">
+                            Password does not match.
+                        </small>
+
+                    </div>
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Security Question</label>
-                    <select class="form-select">
+                    <select class="form-select" formControlName="securityQuestion">
                         <option>Select a Question</option>
                         <option>What is your pet's name?</option>
                         <option>What is your favorite color?</option>
                     </select>
+
+                    <div class="text-danger mt-1" *ngIf="registerForm.get('securityQuestion')?.touched &&
+           registerForm.get('securityQuestion')?.errors?.['required']">
+
+                        <small>Please select a security question.</small>
+
+                    </div>
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Security Answer</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="securityAnswer"
+                        placeholder="Enter security answer">
+                    <div class="text-danger mt-1" *ngIf="registerForm.get('securityAnswer')?.touched &&
+               registerForm.get('securityAnswer')?.invalid">
+
+                        <small *ngIf="registerForm.get('securityAnswer')?.errors?.['required']">
+                            Security Answer is required.
+                        </small>
+
+                    </div>
                 </div>
 
             </div>
 
             <hr>
+            <!-- --------------------------------------------------------------------------------------------------- -->
             <h5 class="mb-3">Contact Information</h5>
 
             <div class="row">
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Address</label>
-                    <textarea class="form-control" rows="3"></textarea>
+                    <textarea class="form-control" rows="3" formControlName="address"
+                        placeholder="Enter address"></textarea>
+                    <div class="text-danger mt-1"
+                        *ngIf="registerForm.get('address')?.touched && registerForm.get('address')?.invalid">
+
+                        <small *ngIf="registerForm.get('address')?.errors?.['required']">
+                            Address is required.
+                        </small>
+                    </div>
+
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">City</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="city" placeholder="Enter city">
+                    <div class="text-danger mt-1"
+                        *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid">
+
+                        <small *ngIf="registerForm.get('city')?.errors?.['required']">
+                            City is required.
+                        </small>
+                    </div>
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">State</label>
-                    <select class="form-select">
-                        <option>choose a state</option>
-                        <option>Andhra Pradesh</option>
-                        <option>Arunachal Pradesh</option>
-                        <option>Odisha</option>
-                        <option>Bihar</option>
-                        <option>Chhattisgarh</option>
-                        <option>Goa</option>
-                        <option>Gujarat</option>
-                        <option>Haryana</option>
-                        <option>Himachal Pradesh</option>
-                        <option>Jharkhand</option>
+                    <select class="form-select" formControlName="state">
+                        <option value="">Choose a State</option>
+                        <option value="AP">Andhra Pradesh</option>
+                        <option value="AR">Arunachal Pradesh</option>
+                        <option value="OD">Odisha</option>
+                        <option value="BR">Bihar</option>
+                        <option value="CG">Chhattisgarh</option>
+                        <option value="GA">Goa</option>
+                        <option value="GJ">Gujarat</option>
+                        <option value="HR">Haryana</option>
+                        <option value="HP">Himachal Pradesh</option>
+                        <option value="JH">Jharkhand</option>
 
 
                     </select>
+                    <div class="text-danger mt-1"
+                        *ngIf="registerForm.get('state')?.touched && registerForm.get('state')?.invalid">
+
+                        <small *ngIf="registerForm.get('state')?.errors?.['required']">
+                            State is required.
+                        </small>
+                    </div>
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Zip Code</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="zipCode" placeholder="Enter zip code">
+                    <div class="text-danger mt-1"
+                        *ngIf="registerForm.get('zipCode')?.touched && registerForm.get('zipCode')?.invalid">
+
+                        <small *ngIf="registerForm.get('zipCode')?.errors?.['required']">
+                            Zip Code is required.
+                        </small>
+
+                        <small *ngIf="registerForm.get('zipCode')?.errors?.['pattern']">
+                            Enter a valid 6-digit Zip Code.
+                        </small>
+                    </div>
+
                 </div>
 
                 <div class="col-12 mb-3">
                     <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="phoneNumber"
+                        placeholder="Enter phone number">
+                    <div class="text-danger mt-1"
+                        *ngIf="registerForm.get('phoneNumber')?.touched && registerForm.get('phoneNumber')?.invalid">
+
+                        <small *ngIf="registerForm.get('phoneNumber')?.errors?.['required']">
+                            Phone Number is required.
+                        </small>
+
+                        <small *ngIf="registerForm.get('phoneNumber')?.errors?.['pattern']">
+                            Enter a valid 10-digit mobile number.
+                        </small>
+                    </div>
 
                 </div>
 
 
 
-            </div> -->
+            </div>
 
             <button class="btn btn-primary w-100 mt-3">
                 Register
@@ -294,213 +410,3 @@
 
     </div>
 </div>
-
-<!-- <div class="container mt-2 mb-2">
-    <div class="card p-4 shadow">
-
-        <h5 class="mb-4">Personal Information</h5>
-
-        <div class="row">
-            <div class="col-12 mb-3">
-                <label class="form-label">First Name</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Last Name</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Date of Birth</label>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected disabled>Month</option>
-                            <option>January</option>
-                            <option>February</option>
-                            <option>March</option>
-                            <option>April</option>
-                            <option>May</option>
-                            <option>June</option>
-                            <option>July</option>
-                            <option>August</option>
-                            <option>September</option>
-                            <option>October</option>
-                            <option>November</option>
-                            <option>December</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected disabled>Day</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected disabled>Year</option>
-                            <option>2005</option>
-                            <option>2004</option>
-                            <option>2003</option>
-                            <option>2002</option>
-                            <option>2001</option>
-                            <option>2000</option>
-                            <option>1999</option>
-                            <option>1998</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label d-block">Gender</label>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="male">
-                    <label class="form-check-label" for="male">Male</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="female">
-                    <label class="form-check-label" for="female">Female</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="other">
-                    <label class="form-check-label" for="other">Other</label>
-                </div>
-            </div>
-
-        </div>
-
-        <hr>
-
-        <h5 class="mb-3">Account Information</h5>
-
-        <div class="row">
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Confirm Email</label>
-                <input type="email" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Confirm Password</label>
-                <input type="password" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Security Question</label>
-                <select class="form-select">
-                    <option>Select a Question</option>
-                    <option>What is your pet's name?</option>
-                    <option>What is your favorite color?</option>
-                </select>
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Security Answer</label>
-                <input type="text" class="form-control">
-            </div>
-
-        </div>
-
-        <hr>
-        <h5 class="mb-3">Contact Information</h5>
-
-        <div class="row">
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Address</label>
-                <textarea class="form-control" rows="3"></textarea>
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">City</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">State</label>
-                <select class="form-select">
-                    <option>choose a state</option>
-                    <option>Andhra Pradesh</option>
-                    <option>Arunachal Pradesh</option>
-                    <option>Odisha</option>
-                    <option>Bihar</option>
-                    <option>Chhattisgarh</option>
-                    <option>Goa</option>
-                    <option>Gujarat</option>
-                    <option>Haryana</option>
-                    <option>Himachal Pradesh</option>
-                    <option>Jharkhand</option>
-
-
-                </select>
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Zip Code</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="col-12 mb-3">
-                <label class="form-label">Phone Number</label>
-                <input type="text" class="form-control">
-
-            </div>
-
-
-
-        </div>
-
-        <button class="btn btn-primary w-100 mt-3">
-            Register
-        </button>
-
-    </div>
-</div> -->
