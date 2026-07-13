@@ -1,0 +1,196 @@
+<div class="container">
+    <form [formGroup]="AssignmentForm" class="w-50 p-5  m-auto mt-3 mb-4 shadow">
+
+        <label for="name" class="form-label mb-3">Name</label>
+        <input type="text" class="form-control mb-3" id="name" formControlName="name" placeholder="Enter Name">
+        <div class="text-danger mt-1 mb-2"
+            *ngIf="AssignmentForm.get('name')?.touched && AssignmentForm.get('name')?.invalid">
+
+            <small *ngIf="AssignmentForm.get('name')?.errors?.['required']">
+                Name is required.
+            </small>
+
+            <small *ngIf="AssignmentForm.get('name')?.errors?.['pattern']">
+                Only letters and spaces are allowed.
+            </small>
+
+        </div>
+        <label for="rollno" class="form-label mb-3">Roll No</label>
+        <input type="text" class="form-control mb-3" id="rollno" formControlName="rollno" placeholder="Enter Roll No">
+        <div class="text-danger mt-1 mb-2"
+            *ngIf="AssignmentForm.get('rollno')?.touched && AssignmentForm.get('rollno')?.invalid">
+
+            <small *ngIf="AssignmentForm.get('rollno')?.errors?.['required']">
+                Roll No is required.
+            </small>
+
+            <small *ngIf="AssignmentForm.get('rollno')?.errors?.['pattern']">
+                Roll No must contain only numbers.
+            </small>
+
+        </div>
+
+        <label for="course" class="form-label mb-3">Course</label>
+
+        <select class="form-select mb-3" id="course" formControlName="course">
+            <option value="">Select Course</option>
+            <option value="Angular">Angular</option>
+            <option value="React">React</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+        </select>
+
+        <div class="text-danger mb-2"
+            *ngIf="AssignmentForm.get('course')?.touched && AssignmentForm.get('course')?.invalid">
+
+            <small *ngIf="AssignmentForm.get('course')?.errors?.['required']">
+                Please select a course.
+            </small>
+
+        </div>
+
+
+        <div>
+            <button type="submit" class="btn btn-success" (click)="submit()">Submit</button>
+        </div>
+
+
+    </form>
+
+    <div class="mt-5">
+        <h3>Student Data</h3>
+    </div>
+
+
+    <div class="card shadow border-0 rounded-4 mt-4">
+    
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center mb-0">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No</th>
+                        <th>Course</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of storeData; let i=index">
+
+                        <td class="fw-semibold">{{item.name}}</td>
+
+                        <td>{{item.rollno}}</td>
+
+                        <td>
+                            <span class="badge bg-success px-3 py-2">
+                                {{item.course}}
+                            </span>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-outline-danger btn-sm rounded-circle me-2"
+                                (click)="deleteFormData(i)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+
+                            <button class="btn btn-outline-primary btn-sm rounded-circle" (click)="open(editForm, i)">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<ng-template #editForm let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit Form</h4>
+        <button type="button" class="btn-close" (click)="d('Cross click')"></button>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="myEditFormGroup">
+
+
+            <label for="editName" class="form-label mb-2">Name</label>
+            <input type="text" id="editName" class="form-control mb-2" formControlName="name" placeholder="Enter Name">
+
+            <div class="text-danger mb-2"
+                *ngIf="myEditFormGroup.get('name')?.touched && myEditFormGroup.get('name')?.invalid">
+
+                <small *ngIf="myEditFormGroup.get('name')?.errors?.['required']">
+                    Name is required.
+                </small>
+
+                <small *ngIf="myEditFormGroup.get('name')?.errors?.['pattern']">
+                    Only letters and spaces are allowed.
+                </small>
+            </div>
+
+
+            <label for="editRollno" class="form-label mb-2">Roll No</label>
+            <input type="text" id="editRollno" class="form-control mb-2" formControlName="rollno"
+                placeholder="Enter Roll No">
+
+            <div class="text-danger mb-2"
+                *ngIf="myEditFormGroup.get('rollno')?.touched && myEditFormGroup.get('rollno')?.invalid">
+
+                <small *ngIf="myEditFormGroup.get('rollno')?.errors?.['required']">
+                    Roll No is required.
+                </small>
+
+                <small *ngIf="myEditFormGroup.get('rollno')?.errors?.['pattern']">
+                    Roll No must contain only numbers.
+                </small>
+            </div>
+
+
+            <label for="course" class="form-label mb-3">Course</label>
+
+            <select class="form-select mb-3" id="course" formControlName="course">
+                <option value="">Select Course</option>
+                <option value="Angular">Angular</option>
+                <option value="React">React</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+            </select>
+
+            <div class="text-danger mb-2"
+                *ngIf="AssignmentForm.get('course')?.touched && AssignmentForm.get('course')?.invalid">
+
+                <small *ngIf="AssignmentForm.get('course')?.errors?.['required']">
+                    Please select a course.
+                </small>
+
+            </div>
+
+
+            <div class="text-danger mb-2"
+                *ngIf="AssignmentForm.get('terms')?.touched && AssignmentForm.get('terms')?.invalid">
+
+                <small>
+                    You must accept the terms.
+                </small>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editFormSubmit()">
+            Update
+        </button>
+    </div>
+</ng-template>

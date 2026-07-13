@@ -1,0 +1,24 @@
+<div class="container">
+    <form [formGroup]="myFormGroup">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter Name">
+        </div>
+
+        <div class="mb-3" formArrayName="skills">
+            <label class="form-label">Skills</label>
+            <div class="d-flex gap-3 mb-2" *ngFor="let s of skill.controls; let i = index" [formGroupName]="i">
+                <input type="text" class="form-control" formControlName="name" placeholder="Enter Skill">
+                <input type="text" class="form-control" formControlName="class" placeholder="Enter Class">
+                <button class="btn btn-danger" (click)="removeArray(i)">Remove</button>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-success" (click)="addSkill()">Add</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+    </form>
+
+</div>

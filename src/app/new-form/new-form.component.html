@@ -19,7 +19,8 @@
     <div class="card mt-3">
         <form [formGroup]="filterForm">
             <div class="">
-                <input type="text" class="form-control" id="dept" formControlName="search" placeholder="Enter Search" (input)="valueChanges($event)">
+                <input type="text" class="form-control" id="dept" formControlName="search" placeholder="Enter Search"
+                    (input)="valueChanges($event)">
             </div>
         </form>
     </div>
@@ -40,10 +41,11 @@
                 <td>{{data.department}}</td>
                 <td>{{data.salary}}</td>
                 <td>
-                    <button class="btn btn-danger btn-sm me-2" (click)="deleteRow(i)">
+                    <button type="button" class="btn btn-danger btn-sm me-2" (click)="deleteRow(i)">
                         <i class="bi bi-trash"></i>
                     </button>
-                    <button class="btn btn-primary btn-sm" (click)="open(editForm, i)">
+
+                    <button type="button" class="btn btn-primary btn-sm" (click)="open(editForm, i)">
                         <i class="bi bi-pencil-square"></i>
                     </button>
                 </td>
