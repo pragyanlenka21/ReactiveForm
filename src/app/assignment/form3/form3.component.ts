@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form3',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,NgbInputDatepicker, FormsModule,JsonPipe],
   templateUrl: './form3.component.html',
   styleUrl: './form3.component.css'
 })
@@ -16,6 +16,9 @@ export class Form3Component {
   ];
   myEditFormGroup: any;
   index!: number;
+  deleteIndex!: number;
+
+  model: any;
 
 
   constructor(formBuilder: FormBuilder, private modalService: NgbModal, private toastr2: ToastrService) {
@@ -32,16 +35,19 @@ export class Form3Component {
         ]
       ],
       course: ['', Validators.required],
+      date : ['']
 
-   
+
     })
     this.myEditFormGroup = formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[A-Za-z ]+$')]],
       rollno: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       course: ['', Validators.required],
 
-   
+
     });
+
+    
 
   }
   submit() {
@@ -70,13 +76,20 @@ export class Form3Component {
 
       }
     );
-    this.AssignmentForm.reset();
+
+    console.log(this.model);
+    this.AssignmentForm.reset(
+      {
+        course: ''
+      }
+    );
 
 
 
   }
-  deleteFormData(index: any) {
-    this.storeData.splice(index, 1);
+  confirmDelete() {
+    this.storeData.splice(this.deleteIndex, 1);
+
     this.toastr2.error(
       'Data deleted Successfully!',
       'Deleted',
@@ -93,12 +106,18 @@ export class Form3Component {
         enableHtml: false,
         newestOnTop: true,
         positionClass: 'toast-top-right',
-
       }
     );
+
+    this.modalService.dismissAll();
   }
 
- 
+  openDelete(content: any, index: number) {
+    this.deleteIndex = index;
+    this.modalService.open(content);
+  }
+
+
 
 
 
@@ -112,7 +131,8 @@ export class Form3Component {
 
     this.myEditFormGroup.patchValue({
       name: val.name,
-      rollno: val.rollno
+      rollno: val.rollno,
+      course: val.course
     });
 
 
@@ -143,8 +163,11 @@ export class Form3Component {
     );
 
     this.modalService.dismissAll();
-    this.myEditFormGroup.reset();
+    this.myEditFormGroup.reset({
+      course: ''
+    });
 
   }
+
 
 }

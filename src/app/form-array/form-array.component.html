@@ -8,11 +8,52 @@
         <div class="mb-3" formArrayName="skills">
             <label class="form-label">Skills</label>
             <div class="d-flex gap-3 mb-2" *ngFor="let s of skill.controls; let i = index" [formGroupName]="i">
+                <!-- We use [formGroupName] because each item inside a FormArray is a FormGroup. Without this line Angular won't know which FormGroup the inputs belong to. -->
                 <input type="text" class="form-control" formControlName="name" placeholder="Enter Skill">
                 <input type="text" class="form-control" formControlName="class" placeholder="Enter Class">
                 <button class="btn btn-danger" (click)="removeArray(i)">Remove</button>
             </div>
         </div>
+
+        <table class="table table-striped table-bordered mt-3" formArrayName="studentInfo">
+            <thead>
+                <tr>
+                    <th>S No.</th>
+                    <th>Name</th>
+                    <th>Roll</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let s of studentInfo.controls; let i = index" [formGroupName]="i">
+                    <td>{{i+1}}</td>
+                    <td>{{s.get('name')?.value}}</td>
+                    <td>{{s.get('roll')?.value}}</td>
+                    <td><textarea class="form-control" rows="2" formControlName="address">Enter address</textarea></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-striped table-bordered mt-3" formArrayName="posts">
+            <thead>
+                <tr>
+                    <th>S No.</th>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Views</th>
+                    <th>Slug</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let s of allPosts.controls; let i = index" [formGroupName]="i">
+                    <td>{{i+1}}</td>
+                    <td>{{s.get('title')?.value}}</td>
+                    <td>{{s.get('body')?.value}}</td>
+                    <td>{{s.get('views')?.value}}</td>
+                    <td><input class="form-control" formControlName="slug" placeholder="Enter Slug"></td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="mb-3">
             <button class="btn btn-success" (click)="addSkill()">Add</button>

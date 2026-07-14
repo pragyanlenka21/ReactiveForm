@@ -49,6 +49,21 @@
 
         </div>
 
+        <div class="input-group">
+			<input
+				class="form-control"
+				placeholder="yyyy-mm-dd"
+				name="dp"
+				[(ngModel)]="model"
+                formControlName="date"
+				ngbDatepicker
+				#d="ngbDatepicker"
+			/>
+			<button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+		</div>
+
+        <pre>Model: {{ model | json }}</pre>
+
 
         <div>
             <button type="submit" class="btn btn-success" (click)="submit()">Submit</button>
@@ -91,7 +106,7 @@
 
                         <td>
                             <button class="btn btn-outline-danger btn-sm rounded-circle me-2"
-                                (click)="deleteFormData(i)">
+                                (click)="openDelete(deleteModal, i)">
                                 <i class="bi bi-trash"></i>
                             </button>
 
@@ -193,4 +208,27 @@
             Update
         </button>
     </div>
+</ng-template>
+
+<ng-template #deleteModal let-c="close" let-d="dismiss">
+
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">Delete Confirmation</h4>
+    <button type="button" class="btn-close" (click)="d()"></button>
+  </div>
+
+  <div class="modal-body">
+    <p>Are you sure you want to delete this record?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="c()">
+      No
+    </button>
+
+    <button class="btn btn-danger" (click)="confirmDelete()">
+      Yes, Delete
+    </button>
+  </div>
+
 </ng-template>
