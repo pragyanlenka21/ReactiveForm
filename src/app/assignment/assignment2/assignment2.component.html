@@ -1,0 +1,56 @@
+<div class="container">
+
+    <form [formGroup]="myFormGroup" class="w-50 p-4 m-auto shadow">
+
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+
+        <div formArrayName="hobbyList">
+
+            <div *ngFor="let hobby of hobbyLists.controls; let i = index" [formGroupName]="i"
+                class="d-flex  align-items-center gap-3 mb-2">
+
+                <input type="checkbox" class="form-check-input" formControlName="selected">
+                <input type="text" class="form-control" formControlName="name">
+                <button class="btn btn-danger" (click)="removeHobby(i)">Remove</button>
+
+            </div>
+
+        </div>
+
+        <button type="button" class="btn btn-info mt-3" (click)="addHobbies()">
+            Add More Hobbies
+        </button>
+
+        <button type="button" class="btn btn-success mt-3 ms-2" (click)="submitForm()">
+            Submit
+        </button>
+
+    </form>
+
+    <table class="table table-bordered mt-4 text-center" >
+        <thead class="table-primary">
+            <tr>
+                <th>Name</th>
+                <th>Selected Hobbies</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of submittedData">
+                <td>{{ item.name }}</td>
+
+                <td>
+                    <span *ngFor="let hobby of item.hobbyList">
+                        <span *ngIf="hobby.selected">
+                            {{ hobby.name }},
+                        </span>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

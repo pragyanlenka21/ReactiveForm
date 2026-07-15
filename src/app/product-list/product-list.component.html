@@ -1,0 +1,54 @@
+ <div class="row">
+
+        <div class="col-12 d-flex justify-content-between align-items-center mt-3 ">
+            <h4 class="fw-bold">All Products</h4>
+
+        </div>
+        <div class="mb-3">
+            <small class="text-secondary">
+                Showing <span class="fw-bolder text-secondary"> {{ myData.length }} </span>products
+            </small>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let item of myData">
+            <div class="card h-100 shadow product-card">
+                <img [src]="item.images[0]" class="card-img-top">
+
+                <div class="card-body d-flex flex-column">
+
+                    <small class="text-secondary text-uppercase">
+                        {{item.brand}}
+                    </small>
+
+                    <h5 class="fw-bold title mt-2">
+                        {{item.title}}
+                    </h5>
+
+                    <div class="d-flex justify-content-between align-items-center ">
+                        <span class="fw-semibold">{{item.rating}}</span>
+
+                        <span class="badge bg-success-subtle text-success">
+                            In stock
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-primary fw-bold fs-5">
+                            ${{item.price}}
+                        </span>
+
+                        <small class="text-decoration-line-through text-secondary ms-2">
+                            ${{item.price+20}}
+                        </small>
+                    </div>
+
+                    <button class="btn btn-primary w-100 mt-auto">
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
